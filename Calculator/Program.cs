@@ -2,6 +2,7 @@
 using CalculatorLibrary;
 using System;
 using System.IO;
+using System.ComponentModel.Design;
 
 namespace CalculatorProgram
 {
@@ -9,25 +10,24 @@ namespace CalculatorProgram
     {
         static void Main(string[] args)
         {
+            
             string usageFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "usageCount.txt");
             IncrementUsageCount(usageFilePath);
             int usageCount = GetUsageCount(usageFilePath);
 
             bool endApp = false;
-            // Display title as the C# console calculator app.
-            Console.WriteLine("Console Calculator in C#\r");
-            Console.WriteLine("------------------------\n");
 
             Calculator calculator = new Calculator();
 
             while (!endApp)
             {
+                Calculator.ShowMenu();
                 // Declare variables and set to empty.
                 // Use Nullable types (with ?) to match type of System.Console.ReadLine
                 string? numInput1 = "";
                 string? numInput2 = "";
                 double result = 0;
-
+                // TODO: Insert a Method here to call history
                 // Ask the user to type the first number.
                 Console.Write("Type a number, and then press Enter: ");
                 numInput1 = Console.ReadLine();

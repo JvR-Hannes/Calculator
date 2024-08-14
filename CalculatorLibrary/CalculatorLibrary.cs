@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.ComponentModel.Design;
 
 namespace CalculatorLibrary
 {
@@ -6,7 +7,7 @@ namespace CalculatorLibrary
     {
         JsonWriter writer;
 
-        static List<double> calculationHistory = new List<double>();
+        static List<string> calculationHistory = new List<string>();
         public Calculator()
         {
             StreamWriter logFile = File.CreateText("calculatorlog.json");
@@ -32,17 +33,17 @@ namespace CalculatorLibrary
                 case "a":
                     result = num1 + num2;
                     writer.WriteValue("Add");
-                    calculationHistory.Add(result);
+                    calculationHistory.Add(result.ToString());
                     break;
                 case "s":
                     result = num1 - num2;
                     writer.WriteValue("Subtract");
-                    calculationHistory.Add(result);
+                    calculationHistory.Add(result.ToString());
                     break;
                 case "m":
                     result = num1 * num2;
                     writer.WriteValue("Multiply");
-                    calculationHistory.Add(result);
+                    calculationHistory.Add(result.ToString());
                     break;
                 case "d":
                     // Ask the user to enter a non-zero divisor.
@@ -50,7 +51,7 @@ namespace CalculatorLibrary
                     {
                         result = num1 / num2;
                         writer.WriteValue("Divide");
-                        calculationHistory.Add(result);
+                        calculationHistory.Add(result.ToString());
                     }
                     break;
                 // Return text for an incorrect option entry.
@@ -70,7 +71,7 @@ namespace CalculatorLibrary
             writer.Close();
         }
 
-        static void ViewHistory()
+        public static void ViewHistory()
         {
             if (calculationHistory.Count == 0)
             {
@@ -84,7 +85,7 @@ namespace CalculatorLibrary
                 Console.WriteLine($"{i + 1}. {calculationHistory[i]}");
             }
         }
-        static void DeleteFromHistory()
+        public static void DeleteFromHistory()
         {
             ViewHistory();
 
@@ -103,5 +104,66 @@ namespace CalculatorLibrary
             }
         }
 
+        public static void ShowMenu()
+        {
+            // Display title as the C# console calculator app.
+            Console.WriteLine("Console Calculator in C#\r");
+            Console.WriteLine("------------------------\n");
+
+            Console.WriteLine("Calculator Menu:");
+            Console.WriteLine("1. Perform a new calculation");
+            Console.WriteLine("2. View calculation history");
+            Console.WriteLine("3. Delete a calculation from history");
+            Console.WriteLine("4. Reuse a calculation from history");
+            Console.WriteLine("5. Exit");
+            Console.Write("Choose an option: ");
+            string? option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    //DoOperation();
+                    break;
+                case "2":
+                    ViewHistory();
+                    break;
+                case "3":
+                    DeleteFromHistory();
+                    break;
+                case "4":
+                    ReuseCalculation();
+                    break;
+                case "5":
+                    Environment.Exit(1);
+                    break;
+                default:
+                    Console.WriteLine("Invalid option. Please choose a valid option.");
+                    break;
+            }
+        }
+
+        private static void ReuseCalculation()
+        {
+            ViewHistory();
+
+            if (calculationHistory.Count == 0)
+                return;
+
+            Console.Write("\nEnter the number of the calculation to reuse: ");
+            if (int.TryParse(Console.ReadLine(), out int index) && index > 0 && index <= calculationHistory.Count)
+            {
+                string selectedCalculation = calculationHistory[index - 1];
+                Console.WriteLine($"Reusing: {selectedCalculation}");
+
+                // Extract the result from the selected calculation
+                double result = double.Parse(selectedCalculation.Split('=')[1].Trim());
+
+                Console.WriteLine("Enter an operator (+, -, *, /) to apply on the previous result:");
+                string? op = Console.ReadLine();
+
+                Console.WriteLine("Enter the number to use in the new calculation:");
+                double num2 = Convert.ToDouble(Console.ReadLine());
+            }
+        }
     }
 }
