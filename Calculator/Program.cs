@@ -1,5 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using CalculatorLibrary;
+using System;
+using System.IO;
 
 namespace CalculatorProgram
 {
@@ -7,6 +9,10 @@ namespace CalculatorProgram
     {
         static void Main(string[] args)
         {
+            string usageFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "usageCount.txt");
+            IncrementUsageCount(usageFilePath);
+            int usageCount = GetUsageCount(usageFilePath);
+
             bool endApp = false;
             // Display title as the C# console calculator app.
             Console.WriteLine("Console Calculator in C#\r");
@@ -85,6 +91,29 @@ namespace CalculatorProgram
             }
             calculator.Finish();
             return;
+        }
+
+        private static void IncrementUsageCount(string filePath)
+        {
+            int count = GetUsageCount(filePath);
+            count++;
+            File.WriteAllText(filePath, count.ToString());
+        }
+
+        private static int GetUsageCount(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                return 0;
+            }
+
+            string countText = File.ReadAllText(filePath);
+            if (int.TryParse(countText,out int count))
+            {
+                return count;
+            }
+
+            return 0;
         }
     }
 }

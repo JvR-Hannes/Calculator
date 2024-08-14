@@ -11,4 +11,10 @@
     <ProjectReference Include="..\CalculatorLibrary\CalculatorLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="usageCount.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
