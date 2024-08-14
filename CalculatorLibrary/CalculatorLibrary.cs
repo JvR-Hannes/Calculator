@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.ComponentModel.Design;
 
 namespace CalculatorLibrary
 {
@@ -20,14 +19,14 @@ namespace CalculatorLibrary
         }
         public double DoOperation(double num1, double num2, string op)
         {
-            double result = double.NaN; // Default value is "not-a-number" if an operation, such as division, could result in an error.
+            double result = double.NaN;
             writer.WriteStartObject();
             writer.WritePropertyName("Operand1");
             writer.WriteValue(num1);
             writer.WritePropertyName("Operand2");
             writer.WriteValue(num2);
             writer.WritePropertyName("Operation");
-            // Use a switch statement to do the math.
+            
             switch (op)
             {
                 case "a":
@@ -46,7 +45,6 @@ namespace CalculatorLibrary
                     calculationHistory.Add(result.ToString());
                     break;
                 case "d":
-                    // Ask the user to enter a non-zero divisor.
                     if (num2 != 0)
                     {
                         result = num1 / num2;
@@ -54,7 +52,6 @@ namespace CalculatorLibrary
                         calculationHistory.Add(result.ToString());
                     }
                     break;
-                // Return text for an incorrect option entry.
                 default:
                     break;
             }
@@ -103,10 +100,8 @@ namespace CalculatorLibrary
                 Console.WriteLine("Invalid input. No calculation deleted.");
             }
         }
-
         public static void ShowMenu()
         {
-            // Display title as the C# console calculator app.
             Console.WriteLine("Console Calculator in C#\r");
             Console.WriteLine("------------------------\n");
 
@@ -122,7 +117,7 @@ namespace CalculatorLibrary
             switch (option)
             {
                 case "1":
-                    //DoOperation();
+                    //TODO: Use the Method that performs a calculation
                     break;
                 case "2":
                     ViewHistory();
@@ -141,7 +136,6 @@ namespace CalculatorLibrary
                     break;
             }
         }
-
         private static void ReuseCalculation()
         {
             ViewHistory();
@@ -155,7 +149,6 @@ namespace CalculatorLibrary
                 string selectedCalculation = calculationHistory[index - 1];
                 Console.WriteLine($"Reusing: {selectedCalculation}");
 
-                // Extract the result from the selected calculation
                 double result = double.Parse(selectedCalculation.Split('=')[1].Trim());
 
                 Console.WriteLine("Enter an operator (+, -, *, /) to apply on the previous result:");

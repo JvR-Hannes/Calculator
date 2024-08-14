@@ -1,8 +1,5 @@
 ﻿using System.Text.RegularExpressions;
 using CalculatorLibrary;
-using System;
-using System.IO;
-using System.ComponentModel.Design;
 
 namespace CalculatorProgram
 {
@@ -22,13 +19,11 @@ namespace CalculatorProgram
             while (!endApp)
             {
                 Calculator.ShowMenu();
-                // Declare variables and set to empty.
-                // Use Nullable types (with ?) to match type of System.Console.ReadLine
+                
                 string? numInput1 = "";
                 string? numInput2 = "";
                 double result = 0;
-                // TODO: Insert a Method here to call history
-                // Ask the user to type the first number.
+                
                 Console.Write("Type a number, and then press Enter: ");
                 numInput1 = Console.ReadLine();
 
