@@ -20,9 +20,7 @@ namespace CalculatorLibrary
         public double DoOperation(double num1, double num2, string op)
         {
             double result = double.NaN;
-            double exponent = double.NaN;
-            double angle = double.NaN;
-            double radians = angle * (Math.PI / 180);
+            
             writer.WriteStartObject();
             writer.WritePropertyName("Operand1");
             writer.WriteValue(num1);
@@ -54,36 +52,6 @@ namespace CalculatorLibrary
                         writer.WriteValue("Divide");
                         calculationHistory.Add(result.ToString());
                     }
-                    break;
-                case "sqr":
-                    result = Math.Sqrt(num1);
-                    writer.WriteValue("Square Root");
-                    calculationHistory.Add(result.ToString());
-                    break;
-                case "tp":
-                    result = Math.Pow(num1, exponent);
-                    writer.WriteValue("To the Power");
-                    calculationHistory.Add(result.ToString());
-                    break;
-                case "tp10":
-                    result = Math.Pow(10, exponent);
-                    writer.WriteValue("To The Power x10");
-                    calculationHistory.Add(result.ToString());
-                    break;
-                case "sin":
-                    result = Math.Sin(radians);
-                    writer.WriteValue("Sin");
-                    calculationHistory.Add(result.ToString());
-                    break;
-                case "cos":
-                    result = Math.Cos(radians);
-                    writer.WriteValue("Cos");
-                    calculationHistory.Add(result.ToString());
-                    break;
-                case "tan":
-                    result = Math.Tan(radians);
-                    writer.WriteValue("Tan");
-                    calculationHistory.Add(result.ToString());
                     break;
                 default:
                     break;
@@ -140,10 +108,14 @@ namespace CalculatorLibrary
 
             Console.WriteLine("Calculator Menu:");
             Console.WriteLine("1. Perform a new calculation");
-            Console.WriteLine("2. View calculation history");
-            Console.WriteLine("3. Delete a calculation from history");
-            Console.WriteLine("4. Reuse a calculation from history");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("2. Perform Trigonometry");
+            Console.WriteLine("2. Calculate Ten Power");
+            Console.WriteLine("2. Calculate To Power");
+            Console.WriteLine("2. Calculate Square Root");
+            Console.WriteLine(". View calculation history");
+            Console.WriteLine(". Delete a calculation from history");
+            Console.WriteLine(". Reuse a calculation from history");
+            Console.WriteLine(". Exit");
             Console.Write("Choose an option: ");
             string? option = Console.ReadLine();
 
@@ -153,15 +125,27 @@ namespace CalculatorLibrary
                     //TODO: Use the Method that performs a calculation
                     break;
                 case "2":
-                    ViewHistory();
+                    PerformTrigonometry();
                     break;
                 case "3":
-                    DeleteFromHistory();
+                    CalculateTenPowerX();
                     break;
                 case "4":
-                    ReuseCalculation();
+                    CalculatePower();
                     break;
                 case "5":
+                    CalculateSquareRoot();
+                    break;
+                case "6":
+                    ViewHistory();
+                    break;
+                case "7":
+                    DeleteFromHistory();
+                    break;
+                case "8":
+                    ReuseCalculation();
+                    break;
+                case "9":
                     Environment.Exit(1);
                     break;
                 default:
@@ -191,6 +175,84 @@ namespace CalculatorLibrary
                 double num1 = Convert.ToDouble(Console.ReadLine());
                 double num2 = Convert.ToDouble(Console.ReadLine());
             }
+        }
+        static void PerformTrigonometry()
+        {
+            Console.WriteLine("\nTrigonometry Functions:");
+            Console.WriteLine("1. Sine (sin)");
+            Console.WriteLine("2. Cosine (cos)");
+            Console.WriteLine("3. Tangent (tan)");
+            Console.Write("Choose a function: ");
+            string choice = Console.ReadLine();
+
+            Console.WriteLine("Enter the angle in degrees:");
+            double angle = Convert.ToDouble(Console.ReadLine());
+            double radians = angle * (Math.PI / 180); 
+
+            double result = 0;
+            string function = "";
+
+            switch (choice)
+            {
+                case "1":
+                    result = Math.Sin(radians);
+                    function = "sin";
+                    break;
+                case "2":
+                    result = Math.Cos(radians);
+                    function = "cos";
+                    break;
+                case "3":
+                    result = Math.Tan(radians);
+                    function = "tan";
+                    break;
+                default:
+                    Console.WriteLine("Invalid option.");
+                    return;
+            }
+
+            string calculation = $"{function}({angle}°) = {result}";
+            calculationHistory.Add(calculation);
+            Console.WriteLine($"Result: {result}");
+            Console.WriteLine("Calculation saved to history.");
+        }
+        static void CalculateTenPowerX()
+        {
+            Console.WriteLine("\nEnter the exponent (x) for 10^x:");
+            double exponent = Convert.ToDouble(Console.ReadLine());
+
+            double result = Math.Pow(10, exponent);
+
+            string calculation = $"10 ^ {exponent} = {result}";
+            calculationHistory.Add(calculation);
+            Console.WriteLine($"Result: {result}");
+            Console.WriteLine("Calculation saved to history.");
+        }
+        static void CalculatePower()
+        {
+            Console.WriteLine("\nEnter the base number:");
+            double baseNum = Convert.ToDouble(Console.ReadLine());
+
+            Console.WriteLine("Enter the exponent:");
+            double exponent = Convert.ToDouble(Console.ReadLine());
+
+            double result = Math.Pow(baseNum, exponent);
+
+            string calculation = $"{baseNum} ^ {exponent} = {result}";
+            calculationHistory.Add(calculation);
+            Console.WriteLine($"Result: {result}");
+            Console.WriteLine("Calculation saved to history.");
+        }
+        static void CalculateSquareRoot()
+        {
+            Console.WriteLine("\nEnter the number to find the square root of:");
+            double num = Convert.ToDouble(Console.ReadLine());
+            double result = Math.Sqrt(num);
+
+            string calculation = $"√{num} = {result}";
+            calculationHistory.Add(calculation);
+            Console.WriteLine($"Result: {result}");
+            Console.WriteLine("Calculation saved to history.");
         }
     }
 }

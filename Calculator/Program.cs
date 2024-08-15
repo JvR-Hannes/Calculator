@@ -23,9 +23,6 @@ namespace CalculatorProgram
                 string? numInput1 = "";
                 string? numInput2 = "";
                 double result = 0;
-                double exponent = 0;
-                double angle = 0;
-                double radians = 0;
                 
                 Console.Write("Type a number, and then press Enter: ");
                 numInput1 = Console.ReadLine();
@@ -52,17 +49,11 @@ namespace CalculatorProgram
                 Console.WriteLine("\ts - Subtract");
                 Console.WriteLine("\tm - Multiply");
                 Console.WriteLine("\td - Divide");
-                Console.WriteLine("\tsqr - Square Root");
-                Console.WriteLine("\ttp - To the Power");
-                Console.WriteLine("\ttp10 - To the Power x10");
-                Console.WriteLine("\tsin - Sin");
-                Console.WriteLine("\tcos - Cos");
-                Console.WriteLine("\ttan - Tan");
                 Console.Write("Your option? ");
 
                 string? op = Console.ReadLine();
 
-                if (op == null || !Regex.IsMatch(op, "[a|s|m|d|sqr|tp|tp10|sin|cos|tan]"))
+                if (op == null || !Regex.IsMatch(op, "[a|s|m|d]"))
                 {
                     Console.WriteLine("Error: Unrecognized input.");
                 }
