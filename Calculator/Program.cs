@@ -23,6 +23,9 @@ namespace CalculatorProgram
                 string? numInput1 = "";
                 string? numInput2 = "";
                 double result = 0;
+                double exponent = 0;
+                double angle = 0;
+                double radians = 0;
                 
                 Console.Write("Type a number, and then press Enter: ");
                 numInput1 = Console.ReadLine();
@@ -34,7 +37,6 @@ namespace CalculatorProgram
                     numInput1 = Console.ReadLine();
                 }
 
-                // Ask the user to type the second number.
                 Console.Write("Type another number, and then press Enter: ");
                 numInput2 = Console.ReadLine();
 
@@ -45,18 +47,22 @@ namespace CalculatorProgram
                     numInput2 = Console.ReadLine();
                 }
 
-                // Ask the user to choose an operator.
                 Console.WriteLine("Choose an operator from the following list:");
                 Console.WriteLine("\ta - Add");
                 Console.WriteLine("\ts - Subtract");
                 Console.WriteLine("\tm - Multiply");
                 Console.WriteLine("\td - Divide");
+                Console.WriteLine("\tsqr - Square Root");
+                Console.WriteLine("\ttp - To the Power");
+                Console.WriteLine("\ttp10 - To the Power x10");
+                Console.WriteLine("\tsin - Sin");
+                Console.WriteLine("\tcos - Cos");
+                Console.WriteLine("\ttan - Tan");
                 Console.Write("Your option? ");
 
                 string? op = Console.ReadLine();
 
-                // Validate input is not null, and matches the pattern
-                if (op == null || !Regex.IsMatch(op, "[a|s|m|d]"))
+                if (op == null || !Regex.IsMatch(op, "[a|s|m|d|sqr|tp|tp10|sin|cos|tan]"))
                 {
                     Console.WriteLine("Error: Unrecognized input.");
                 }
@@ -78,11 +84,10 @@ namespace CalculatorProgram
                 }
                 Console.WriteLine("------------------------\n");
 
-                // Wait for the user to respond before closing.
                 Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
                 if (Console.ReadLine() == "n") endApp = true;
 
-                Console.WriteLine("\n"); // Friendly linespacing.
+                Console.WriteLine("\n"); 
             }
             calculator.Finish();
             return;

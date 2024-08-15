@@ -20,6 +20,9 @@ namespace CalculatorLibrary
         public double DoOperation(double num1, double num2, string op)
         {
             double result = double.NaN;
+            double exponent = double.NaN;
+            double angle = double.NaN;
+            double radians = angle * (Math.PI / 180);
             writer.WriteStartObject();
             writer.WritePropertyName("Operand1");
             writer.WriteValue(num1);
@@ -51,6 +54,36 @@ namespace CalculatorLibrary
                         writer.WriteValue("Divide");
                         calculationHistory.Add(result.ToString());
                     }
+                    break;
+                case "sqr":
+                    result = Math.Sqrt(num1);
+                    writer.WriteValue("Square Root");
+                    calculationHistory.Add(result.ToString());
+                    break;
+                case "tp":
+                    result = Math.Pow(num1, exponent);
+                    writer.WriteValue("To the Power");
+                    calculationHistory.Add(result.ToString());
+                    break;
+                case "tp10":
+                    result = Math.Pow(10, exponent);
+                    writer.WriteValue("To The Power x10");
+                    calculationHistory.Add(result.ToString());
+                    break;
+                case "sin":
+                    result = Math.Sin(radians);
+                    writer.WriteValue("Sin");
+                    calculationHistory.Add(result.ToString());
+                    break;
+                case "cos":
+                    result = Math.Cos(radians);
+                    writer.WriteValue("Cos");
+                    calculationHistory.Add(result.ToString());
+                    break;
+                case "tan":
+                    result = Math.Tan(radians);
+                    writer.WriteValue("Tan");
+                    calculationHistory.Add(result.ToString());
                     break;
                 default:
                     break;
@@ -155,6 +188,7 @@ namespace CalculatorLibrary
                 string? op = Console.ReadLine();
 
                 Console.WriteLine("Enter the number to use in the new calculation:");
+                double num1 = Convert.ToDouble(Console.ReadLine());
                 double num2 = Convert.ToDouble(Console.ReadLine());
             }
         }
